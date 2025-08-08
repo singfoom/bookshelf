@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: Pride and Prejudice
+  genre: Romance
+  author: one
+
+two:
+  title: 1984
+  genre: Dystopian Fiction
+  author: two
+
+three:
+  title: Emma
+  genre: Romance
+  author: one
