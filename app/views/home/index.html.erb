@@ -1,37 +1,37 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-4xl font-bold text-gray-800 mb-8">Welcome to Bookshelf</h1>
+<div class="homepage-container">
+  <h1 class="homepage-title">Welcome to Bookshelf</h1>
   
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <div class="bg-blue-50 p-6 rounded-lg shadow-sm">
-      <h2 class="text-2xl font-semibold text-blue-800 mb-2">Authors</h2>
-      <p class="text-3xl font-bold text-blue-600"><%= @authors_count %></p>
-      <p class="text-gray-600">Total authors in our collection</p>
+  <div class="stats-grid">
+    <div class="stat-card authors">
+      <h2 class="stat-title">Authors</h2>
+      <p class="stat-number"><%= @authors_count %></p>
+      <p class="stat-description">Total authors in our collection</p>
     </div>
     
-    <div class="bg-green-50 p-6 rounded-lg shadow-sm">
-      <h2 class="text-2xl font-semibold text-green-800 mb-2">Books</h2>
-      <p class="text-3xl font-bold text-green-600"><%= @books_count %></p>
-      <p class="text-gray-600">Total books in our library</p>
+    <div class="stat-card books">
+      <h2 class="stat-title">Books</h2>
+      <p class="stat-number"><%= @books_count %></p>
+      <p class="stat-description">Total books in our library</p>
     </div>
   </div>
   
   <% if @recent_books.any? %>
-    <div class="bg-white shadow-sm rounded-lg p-6">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Books</h2>
-      <div class="space-y-3">
+    <div class="books-section">
+      <h2 class="section-title">Recent Books</h2>
+      <div class="books-list">
         <% @recent_books.each do |book| %>
-          <div class="border-b border-gray-200 pb-3 last:border-b-0">
-            <h3 class="text-lg font-medium text-gray-900"><%= book.title %></h3>
-            <p class="text-gray-600">by <%= book.author.full_name %></p>
-            <p class="text-sm text-gray-500">Genre: <%= book.genre %></p>
+          <div class="book-item">
+            <h3 class="book-title"><%= book.title %></h3>
+            <p class="book-author">by <%= book.author.full_name %></p>
+            <p class="book-genre">Genre: <%= book.genre %></p>
           </div>
         <% end %>
       </div>
     </div>
   <% else %>
-    <div class="bg-gray-50 p-6 rounded-lg shadow-sm text-center">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">No books yet</h2>
-      <p class="text-gray-600">Your bookshelf is empty. Start adding some books!</p>
+    <div class="empty-state">
+      <h2 class="empty-state-title">No books yet</h2>
+      <p class="empty-state-description">Your bookshelf is empty. Start adding some books!</p>
     </div>
   <% end %>
 </div>
