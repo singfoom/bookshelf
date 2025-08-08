@@ -1,0 +1,72 @@
+<% content_for(:title) { "#{@user.full_name} - Profile" } %>
+
+<div class="homepage-container">
+  <div class="profile-section">
+    <h1 class="profile-title">User Profile</h1>
+    
+    <div class="profile-card">
+      <div class="profile-info">
+        <h2 class="profile-name"><%= @user.full_name %></h2>
+        <p class="profile-email"><%= @user.email %></p>
+        <p class="profile-joined">Member since <%= @user.created_at.strftime("%B %Y") %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.profile-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-title {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.profile-name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.profile-email {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-joined {
+  color: #888;
+  font-size: 1rem;
+  font-style: italic;
+}
+</style>

@@ -13,3 +13,15 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+class ActionDispatch::IntegrationTest
+  # Log in as a particular user
+  def log_in_as(user, password: "password123")
+    post login_path, params: { email: user.email, password: password }
+  end
+
+  # Returns true if a test user is logged in
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
+end

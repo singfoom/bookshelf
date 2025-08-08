@@ -22,7 +22,40 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= 'with-header' unless params[:controller] == 'sessions' || (params[:controller] == 'users' && params[:action] == 'new') %>">
+    <% unless params[:controller] == 'sessions' || (params[:controller] == 'users' && params[:action] == 'new') %>
+      <header class="header">
+        <div class="header-container">
+          <%= link_to "Bookshelf", root_path, class: "header-logo" %>
+          
+          <nav class="header-nav">
+            <% if logged_in? %>
+              <div class="header-user">
+                <span class="header-username">Hello, <%= current_user.first_name %></span>
+                <%= link_to "Profile", user_path(current_user), class: "header-button secondary" %>
+                <%= link_to "Sign Out", logout_path, method: :delete, class: "header-button secondary" %>
+              </div>
+            <% else %>
+              <div class="header-user">
+                <%= link_to "Sign In", login_path, class: "header-button secondary" %>
+                <%= link_to "Sign Up", signup_path, class: "header-button primary" %>
+              </div>
+            <% end %>
+          </nav>
+        </div>
+      </header>
+    <% end %>
+
+    <% if flash.any? %>
+      <div class="flash-messages">
+        <% flash.each do |type, message| %>
+          <div class="flash-message <%= type %>">
+            <%= message %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
