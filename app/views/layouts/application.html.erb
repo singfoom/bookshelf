@@ -33,7 +33,7 @@
               <div class="header-user">
                 <span class="header-username">Hello, <%= current_user.first_name %></span>
                 <%= link_to "Profile", user_path(current_user), class: "header-button secondary" %>
-                <%= link_to "Sign Out", logout_path, method: :delete, class: "header-button secondary" %>
+                <%= link_to "Sign Out", logout_path, data: { "turbo-method": :delete }, class: "header-button secondary" %>
               </div>
             <% else %>
               <div class="header-user">
