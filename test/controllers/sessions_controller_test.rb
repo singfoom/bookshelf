@@ -33,7 +33,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "password123"
     }
     assert_response :unprocessable_content
-    assert flash[:alert]
+    assert_select ".error-message", "Email not found"
     assert_not is_logged_in?
   end
 
@@ -43,7 +43,82 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       password: "wrongpassword"
     }
     assert_response :unprocessable_content
-    assert flash[:alert]
+    assert_select ".error-message", "Password is incorrect"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with nil email" do
+    post login_path, params: {
+      email: nil,
+      password: "password123"
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Email can't be blank"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with empty email" do
+    post login_path, params: {
+      email: "",
+      password: "password123"
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Email can't be blank"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with blank password" do
+    post login_path, params: {
+      email: @user.email,
+      password: ""
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Password can't be blank"
+    assert_select ".error-message", { count: 1 }, "Should only show password error for valid email + blank password"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with nil password" do
+    post login_path, params: {
+      email: @user.email,
+      password: nil
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Password can't be blank"
+    assert_select ".error-message", { count: 1 }, "Should only show password error for valid email + nil password"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with both email and password blank" do
+    post login_path, params: {
+      email: "",
+      password: ""
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Email can't be blank"
+    assert_select ".error-message", "Password can't be blank"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with both email and password nil" do
+    post login_path, params: {
+      email: nil,
+      password: nil
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Email can't be blank"
+    assert_select ".error-message", "Password can't be blank"
+    assert_not is_logged_in?
+  end
+
+  test "should not login with invalid email and blank password - only show password error" do
+    post login_path, params: {
+      email: "nonexistent@example.com",
+      password: ""
+    }
+    assert_response :unprocessable_content
+    assert_select ".error-message", "Password can't be blank"
+    assert_select ".error-message", { count: 1 }, "Should only show password error when any email is entered with blank password"
     assert_not is_logged_in?
   end
 
