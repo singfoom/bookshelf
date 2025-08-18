@@ -44,6 +44,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :unprocessable_content
     assert_select ".error-message", "Password is incorrect"
+    assert_select ".error-message", { count: 1 }, "Should only show password error, not email error"
     assert_not is_logged_in?
   end
 
@@ -96,7 +97,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :unprocessable_content
     assert_select ".error-message", "Email can't be blank"
-    assert_select ".error-message", "Password can't be blank"
+    assert_select ".error-message", { count: 1 }, "Should only show email error when both are blank"
     assert_not is_logged_in?
   end
 
@@ -107,7 +108,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :unprocessable_content
     assert_select ".error-message", "Email can't be blank"
-    assert_select ".error-message", "Password can't be blank"
+    assert_select ".error-message", { count: 1 }, "Should only show email error when both are nil"
     assert_not is_logged_in?
   end
 
