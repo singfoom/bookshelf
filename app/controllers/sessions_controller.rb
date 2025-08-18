@@ -2,16 +2,17 @@ class SessionsController < ApplicationController
   before_action :require_guest, only: [ :new, :create ]
 
   def new
+    @login_form = LoginForm.new
   end
 
   def create
-    user = User.find_by(email: params[:email].downcase)
+    @login_form = LoginForm.new(email: params[:email], password: params[:password])
 
-    if user && user.authenticate(params[:password])
-      log_in(user)
-      redirect_to root_path, notice: "Welcome back, #{user.first_name}!"
+    if @login_form.authenticate
+      log_in(@login_form.user)
+      redirect_to root_path, notice: "Welcome back, #{@login_form.user.first_name}!"
     else
-      flash.now[:alert] = "Invalid email or password"
+      # Email is already preserved in @login_form from params[:email]
       render :new, status: :unprocessable_content
     end
   end
