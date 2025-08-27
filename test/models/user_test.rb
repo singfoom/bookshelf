@@ -63,4 +63,18 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal "John Doe", @user.full_name
   end
+
+  test "admin should default to false" do
+    assert_not @user.admin?
+  end
+
+  test "admin? should return true when admin is true" do
+    @user.admin = true
+    assert @user.admin?
+  end
+
+  test "admin? should return false when admin is false" do
+    @user.admin = false
+    assert_not @user.admin?
+  end
 end

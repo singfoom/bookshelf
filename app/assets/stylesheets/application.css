@@ -361,6 +361,25 @@ body {
   font-size: 0.9rem;
 }
 
+/* Field-specific error styling */
+.field-error {
+  margin-top: 0.5rem;
+}
+
+.error-message {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Ensure form inputs maintain consistent width */
+.form-group .form-input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 /* Header navigation */
 .header {
   position: fixed;

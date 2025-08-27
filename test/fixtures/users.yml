@@ -5,9 +5,18 @@ john:
   last_name: Doe
   email: john@example.com
   password_digest: <%= BCrypt::Password.create('password123') %>
+  admin: false
 
 jane:
   first_name: Jane
   last_name: Smith
   email: jane@example.com
   password_digest: <%= BCrypt::Password.create('password456') %>
+  admin: false
+
+admin:
+  first_name: Admin
+  last_name: User
+  email: admin@example.com
+  password_digest: <%= BCrypt::Password.create('admin123') %>
+  admin: true

@@ -1,0 +1,42 @@
+<% content_for :title, "#{@book.title} - Admin" %>
+
+<div class="admin-content">
+  <div class="admin-header">
+    <h1><%= @book.title %></h1>
+    <div class="admin-actions">
+      <%= link_to "Edit", edit_admin_book_path(@book), class: "btn btn-primary" %>
+      <%= link_to "Delete", admin_book_path(@book), 
+            data: { "turbo-method": :delete, 
+                   confirm: "Are you sure you want to delete this book?" }, 
+            class: "btn btn-danger" %>
+      <%= link_to "Back to Books", admin_books_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+
+  <div class="admin-details">
+    <div class="detail-group">
+      <label>Title:</label>
+      <p><%= @book.title %></p>
+    </div>
+
+    <div class="detail-group">
+      <label>Author:</label>
+      <p><%= @book.author.full_name %></p>
+    </div>
+
+    <div class="detail-group">
+      <label>Genre:</label>
+      <p><%= @book.genre %></p>
+    </div>
+
+    <div class="detail-group">
+      <label>Created:</label>
+      <p><%= @book.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+    </div>
+
+    <div class="detail-group">
+      <label>Last Updated:</label>
+      <p><%= @book.updated_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+    </div>
+  </div>
+</div>

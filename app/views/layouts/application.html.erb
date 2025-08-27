@@ -32,6 +32,9 @@
             <% if logged_in? %>
               <div class="header-user">
                 <span class="header-username">Hello, <%= current_user.first_name %></span>
+                <% if current_user.admin? %>
+                  <%= link_to "Admin", admin_root_path, class: "header-button primary" %>
+                <% end %>
                 <%= link_to "Profile", user_path(current_user), class: "header-button secondary" %>
                 <%= link_to "Sign Out", logout_path, data: { "turbo-method": :delete }, class: "header-button secondary" %>
               </div>
