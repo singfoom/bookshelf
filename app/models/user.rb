@@ -13,6 +13,10 @@ class User < ApplicationRecord
     "#{first_name.to_s.strip} #{last_name.to_s.strip}".strip
   end
 
+  def admin?
+    admin
+  end
+
   private
 
   def normalize_names
